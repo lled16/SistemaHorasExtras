@@ -1,0 +1,2 @@
+C:\Users\JoaoSimao\Documents\joao\EstudoRabbitMQ\GeradorPlanilhaHoras\GeradorPlanilhaHoras\obj\Release\GeradorPlanilhaHoras.csproj.AssemblyReference.cache
+C:\Users\JoaoSimao\Documents\joao\EstudoRabbitMQ\GeradorPlanilhaHoras\GeradorPlanilhaHoras\obj\Release\GeradorPlanilhaHoras.csproj.SuggestedBindingRedirects.cache
