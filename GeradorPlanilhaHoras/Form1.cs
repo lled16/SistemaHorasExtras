@@ -33,7 +33,9 @@ namespace GeradorPlanilhaHoras
         string horaFimCompleta = "";
         string nomeColaborador = "";
         string emailColaborador = "";
+        string emailGestor = "";
         bool verificaCheckBox = false;
+        string corpoEmail = "";
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
@@ -59,7 +61,7 @@ namespace GeradorPlanilhaHoras
 
             string caminhoArquivo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"Brunsker\config.txt");
 
-            
+
 
             string[] linhas = File.ReadAllLines(caminhoArquivo);
 
@@ -86,8 +88,6 @@ namespace GeradorPlanilhaHoras
                 }
             }
 
-            textBoxNome.Text = nomeColaborador;
-            textBoxEmail.Text = emailColaborador;
             string totalHorasTrabalhadas = retornaHorasTrabalhadasTotal();
 
             label6.Text = totalHorasTrabalhadas;
@@ -151,7 +151,7 @@ namespace GeradorPlanilhaHoras
 
                 if (!verificaCheckBox)
                 {
-                    totalHorasTrabalhadas =  retornaHorasTrabalhadasTotal();
+                    totalHorasTrabalhadas = retornaHorasTrabalhadasTotal();
                 }
                 else
                 {
@@ -164,7 +164,7 @@ namespace GeradorPlanilhaHoras
 
                 label6.Text = totalHorasTrabalhadas;
 
-                enviaEmailDia();
+                EnviaEmailDia();
             }
             else
             {
@@ -180,7 +180,18 @@ namespace GeradorPlanilhaHoras
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
-            this.label1.Text = string.Format("{0:hh\\:mm\\:ss}", stopwatch.Elapsed);
+            try
+            {
+                this.label1.Text = string.Format("{0:hh\\:mm\\:ss}", stopwatch.Elapsed);
+            }
+            catch
+            {
+                Console.WriteLine("erro");
+            }
+
+
+
+
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -214,9 +225,9 @@ namespace GeradorPlanilhaHoras
                         ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
                         worksheet.Cells[3, 2].Value = horaTotal;
                     }
-                    
 
-                    
+
+
 
 
                     package.Save();
@@ -490,6 +501,17 @@ namespace GeradorPlanilhaHoras
                     }
                 }
 
+                foreach (string linha in linhas)
+                {
+                    if (linha.Contains("EmailGestor"))
+                    {
+                        string[] nome = linha.Split('-');
+
+                        emailGestor = nome[1];
+                        break;
+                    }
+                }
+
                 try
                 {
                     this.Cursor = Cursors.WaitCursor;
@@ -497,7 +519,7 @@ namespace GeradorPlanilhaHoras
                     MailMessage mail = new MailMessage();
                     SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
                     mail.From = new MailAddress(emailColaborador);
-                    mail.To.Add("vitoralves1604@gmail.com");
+                    mail.To.Add("vitoralves1604@gmail.com" + ";" + emailGestor);
                     mail.Subject = "Planilha de Horas Extras";
                     mail.Body = $"Bom dia, \n\n" +
                                 $"Segue em anexo minha planilha de horas extras.\n\n" +
@@ -509,7 +531,7 @@ namespace GeradorPlanilhaHoras
 
 
                     System.Net.Mail.Attachment attachment;
-                    attachment = new System.Net.Mail.Attachment("C:\\GeradorPlanilhaHoras\\horasExtras.xlsx");
+                    attachment = new System.Net.Mail.Attachment(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"Brunsker\horasExtras.xlsx"));
                     mail.Attachments.Add(attachment);
 
                     SmtpServer.Port = 587;
@@ -545,14 +567,14 @@ namespace GeradorPlanilhaHoras
 
 
 
-        public void enviaEmailDia()
+        public void EnviaEmailDia()
         {
 
 
             DateTime horaIniComple = DateTime.Parse(horaInicioCompleta);
             DateTime horaFimComple = DateTime.Parse(horaFimCompleta);
             TimeSpan tempoTrabalhado = (horaFimComple - horaIniComple);
-          
+
             CultureInfo culture = new CultureInfo("pt-BR");
             DateTimeFormatInfo dtfi = culture.DateTimeFormat;
 
@@ -560,82 +582,151 @@ namespace GeradorPlanilhaHoras
 
             string caminhoArquivo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"Brunsker\config.txt");
 
-                string[] linhas = File.ReadAllLines(caminhoArquivo);
 
-                foreach (string linha in linhas)
+            string caminhoArquivoErrosEmails = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"Brunsker\erroEnvioEmailHoras.txt");
+
+            string[] linhas = File.ReadAllLines(caminhoArquivo);
+
+
+            string erroEnvios = File.ReadAllText(caminhoArquivoErrosEmails);
+
+            foreach (string linha in linhas)
+            {
+                if (linha.Contains("Nome"))
                 {
-                    if (linha.Contains("Nome"))
-                    {
-                        string[] nome = linha.Split('-');
+                    string[] nome = linha.Split('-');
 
-                        nomeColaborador = nome[1];
-                        break;
-                    }
+                    nomeColaborador = nome[1];
+                    break;
+                }
+            }
+
+            foreach (string linha in linhas)
+            {
+                if (linha.Contains("Email"))
+                {
+                    string[] nome = linha.Split('-');
+
+                    emailColaborador = nome[1];
+                    break;
+                }
+            }
+
+            foreach (string linha in linhas)
+            {
+                if (linha.Contains("EmailGestor"))
+                {
+                    string[] nome = linha.Split('-');
+
+                    emailGestor = nome[1];
+                    break;
+                }
+            }
+
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                string[] emails = new string[2];
+
+                emails[0] = emailColaborador;
+                emails[1] = emailGestor;
+
+                MailMessage mail = new MailMessage();
+
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+                mail.From = new MailAddress(emailColaborador);
+
+                foreach (var address in emails)
+                {
+                    mail.To.Add(address);
                 }
 
-                foreach (string linha in linhas)
-                {
-                    if (linha.Contains("Email"))
-                    {
-                        string[] nome = linha.Split('-');
+                mail.Subject = $"Hora extra - {nomeColaborador}";
 
-                        emailColaborador = nome[1];
-                        break;
-                    }
+                corpoEmail = $"Bom dia, \n\n" +
+                            $"Colaborador : {nomeColaborador.Replace(" ", "")}" +
+                            $"\n\n" +
+                            $"Data de Atuação : {DateTime.Now.ToString("dd/mm/yyyy")}" +
+                            $"\n\n" +
+                            $"Cliente : {textBox1.Text}" +
+                            $"\n\n" +
+                            $"Motivo da Atuação : {textBox2.Text}" +
+                            $"\n\n" +
+                            $"Tempo de Atuação : {totalTrabalhado} \n\n" +
+                            $"Horas passadas não enviadas : \n\n {erroEnvios}"  +
+                            $"\n\nAtenciosamente";
+
+                mail.Body = corpoEmail;
+
+                SmtpServer.Port = 587;
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("joao.simiao@brunsker.com.br", "bsob tmby gofu elkh");
+                SmtpServer.EnableSsl = true;
+
+                SmtpServer.Send(mail);
+
+                string caminhoArquivoErros = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"Brunsker\erroEnvioEmailHoras.txt");
+
+                using (StreamWriter writer = new StreamWriter(caminhoArquivoErros))
+                {
+                    writer.Write(string.Empty);
                 }
 
-                try
+                string message = "E-mail de horas enviado com sucesso !";
+                string caption = "E-mail enviado !";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+
+                result = MessageBox.Show(message, caption, buttons);
+            }
+            catch (Exception ex)
+
+            {
+                if (ex.Message.Contains("Falha ao enviar email"))
                 {
-                    this.Cursor = Cursors.WaitCursor;
+                    GravaArquivoErroEnvioEmail("----------------------------------" + corpoEmail.Replace("Bom dia,", " ").Replace("\n\nAtenciosamente", ""));
 
-                    MailMessage mail = new MailMessage();
-                    SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-                    mail.From = new MailAddress(emailColaborador);
-                    mail.To.Add("vitoralves1604@gmail.com");
-                    mail.Subject = $"Hora extra - {nomeColaborador}";
-                    mail.Body = $"Bom dia, \n\n" +
-                                $"Data de Atuação : {DateTime.Now.ToString("dd/mm/yyyy")}" +
-                                $"\n\n" +
-                                $"Cliente : {textBox1.Text}" +
-                                $"\n\n" +
-                                $"Motivo da Atuação : {textBox2.Text}" +
-                                $"\n\n" +
-                                $"Tempo de Atuação : {totalTrabalhado} \n\n" +
-                                $"\n\n" +
-                                $"Atenciosamente, {nomeColaborador}";
 
-                    SmtpServer.Port = 587;
-                    SmtpServer.UseDefaultCredentials = false;
-                    SmtpServer.Credentials = new System.Net.NetworkCredential("joao.simiao@brunsker.com.br", "bsob tmby gofu elkh");
-                    SmtpServer.EnableSsl = true;
+                    string message = "Erro ao enviar e-mail de horas ! \n Motivo : Computador não conectado à rede. \n Na próxima vez que utilizar o sistema, caso esteja conectado, o e-mail irá conter a informação desta vez, não se preocupe.";
+                    string caption = "Erro ao enviar e-mail de horas !";
 
-                    SmtpServer.Send(mail);
+                    MessageBoxButtons buttons = MessageBoxButtons.OK;
+                    DialogResult result;
 
-                    string message = "E-mail de horas enviado com sucesso !";
-                    string caption = "E-mail enviado !";
+                    result = MessageBox.Show(message, caption, buttons);
+
+
+                }
+                else
+                {
+                    string message = "Erro ao enviar e-mail de horas !" + ex.ToString();
+                    string caption = "Erro ao enviar e-mail de horas !";
                     MessageBoxButtons buttons = MessageBoxButtons.OK;
                     DialogResult result;
 
                     result = MessageBox.Show(message, caption, buttons);
                 }
-                catch (Exception ex)
-                {
-                    string message = "Erro ao enviar e-mail de horas !" + ex.ToString();
-                    string caption = "Erro ao enviar e-mail de horas !";
-                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-                    DialogResult result;
 
-                    result = MessageBox.Show(message, caption, buttons);
-                }
-                finally
-                {
-                    this.Cursor = Cursors.Default;
-                }
-
-            
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
         }
 
+        public void GravaArquivoErroEnvioEmail(string mensagem)
+        {
 
+            string caminhoArquivo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"Brunsker\erroEnvioEmailHoras.txt");
+
+            using (StreamWriter writer = new StreamWriter(caminhoArquivo))
+            {
+                //writer.Write(string.Empty);
+                writer.WriteLine(mensagem + "\n\n");
+            }
+        }
 
         public string retornaHorasTrabalhadasTotal()
         {
@@ -672,7 +763,7 @@ namespace GeradorPlanilhaHoras
                     linhaPosicao++;
                 }
 
-            
+
 
                 for (int i = 5; i <= ultimaLinhaComDados2; i++)
                 {
@@ -830,34 +921,34 @@ namespace GeradorPlanilhaHoras
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            string nomeColaborador = "Nome - " + textBoxNome.Text;
-            string emailColaborador = "Email - " + textBoxEmail.Text;
+        //private void button5_Click(object sender, EventArgs e)
+        //{
+        //    string nomeColaborador = "Nome - " + textBoxNome.Text;
+        //    string emailColaborador = "Email - " + textBoxEmail.Text;
 
-            string caminhoArquivo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"Brunsker\config.txt");
-            
-
+        //    string caminhoArquivo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"Brunsker\config.txt");
 
 
-            // Escreve o texto no arquivo (sobrescreve o arquivo se já existir)
-            using (StreamWriter writer = new StreamWriter(caminhoArquivo))
-            {
-                writer.Write(string.Empty);
-                writer.WriteLine(nomeColaborador + "\n\n" + emailColaborador);
-            }
 
-            preencheNomeCSV(textBoxNome.Text);
 
-            string message = "Configurações de e-mail e nome salvas com sucesso !";
-            string caption = "Atenção !";
-            MessageBoxButtons buttons = MessageBoxButtons.OK;
-            DialogResult result;
+        //    // Escreve o texto no arquivo (sobrescreve o arquivo se já existir)
+        //    using (StreamWriter writer = new StreamWriter(caminhoArquivo))
+        //    {
+        //        writer.Write(string.Empty);
+        //        writer.WriteLine(nomeColaborador + "\n\n" + emailColaborador);
+        //    }
 
-            result = MessageBox.Show(message, caption, buttons);
-        }
+        //    preencheNomeCSV(textBoxNome.Text);
 
-        private void preencheNomeCSV(string nome)
+        //    string message = "Configurações de e-mail e nome salvas com sucesso !";
+        //    string caption = "Atenção !";
+        //    MessageBoxButtons buttons = MessageBoxButtons.OK;
+        //    DialogResult result;
+
+        //    result = MessageBox.Show(message, caption, buttons);
+        //}
+
+        public void preencheNomeCSV(string nome)
         {
 
             try
@@ -932,7 +1023,7 @@ namespace GeradorPlanilhaHoras
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
@@ -969,6 +1060,13 @@ namespace GeradorPlanilhaHoras
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Configuracoes dlg1 = new Configuracoes();
+
+            dlg1.ShowDialog();
         }
     }
 }

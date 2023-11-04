@@ -28,13 +28,13 @@
         "Entry"
         {
         "MsmKey" = "8:_19AC6EC2E59C67CAC463DE3608788C0B"
-        "OwnerKey" = "8:_A60D72336C5D4155B5CFDF5AE47566DE"
+        "OwnerKey" = "8:_01454243D2774CB18077FFF07861B8F7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_19AC6EC2E59C67CAC463DE3608788C0B"
-        "OwnerKey" = "8:_01454243D2774CB18077FFF07861B8F7"
+        "OwnerKey" = "8:_A60D72336C5D4155B5CFDF5AE47566DE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -58,18 +58,12 @@
         "Entry"
         {
         "MsmKey" = "8:_5779D7D4F5923819982EEC0034390FDC"
-        "OwnerKey" = "8:_A60D72336C5D4155B5CFDF5AE47566DE"
+        "OwnerKey" = "8:_01454243D2774CB18077FFF07861B8F7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_5779D7D4F5923819982EEC0034390FDC"
-        "OwnerKey" = "8:_01454243D2774CB18077FFF07861B8F7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_588ADC66A7F6131D006C17961ACB5B9C"
         "OwnerKey" = "8:_A60D72336C5D4155B5CFDF5AE47566DE"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -77,6 +71,12 @@
         {
         "MsmKey" = "8:_588ADC66A7F6131D006C17961ACB5B9C"
         "OwnerKey" = "8:_01454243D2774CB18077FFF07861B8F7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_588ADC66A7F6131D006C17961ACB5B9C"
+        "OwnerKey" = "8:_A60D72336C5D4155B5CFDF5AE47566DE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -135,20 +135,20 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5779D7D4F5923819982EEC0034390FDC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A60D72336C5D4155B5CFDF5AE47566DE"
+        "MsmKey" = "8:_B14ACDEA7C454944BFE4D038753F41FD"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_01454243D2774CB18077FFF07861B8F7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A60D72336C5D4155B5CFDF5AE47566DE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -179,6 +179,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_19AC6EC2E59C67CAC463DE3608788C0B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_5779D7D4F5923819982EEC0034390FDC"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -231,6 +237,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -486,6 +500,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B14ACDEA7C454944BFE4D038753F41FD"
+            {
+            "SourcePath" = "8:C:\\GeradorPlanilhaHoras\\ICONE\\B.ico"
+            "TargetName" = "8:B.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_8301561BCBDB4EADA9382D37601B5F7B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -518,7 +552,7 @@
             "{1525181F-901A-416C-8A58-119130FE478E}:_E7D84C0F1B124307A15AE05FC3CEEF87"
             {
             "Name" = "8:#1919"
-            "AlwaysCreate" = "11:FALSE"
+            "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Property" = "8:ProgramMenuFolder"
@@ -543,13 +577,13 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Gerador Planilhas Brunsker"
         "ProductCode" = "8:{9221D5DF-749E-42F2-9494-9BD378E3ACED}"
-        "PackageCode" = "8:{27A8181E-E550-446A-AB19-D9CA0BE34994}"
+        "PackageCode" = "8:{5A17C651-2136-4A6F-8D66-35CD5CDD4E7D}"
         "UpgradeCode" = "8:{32037C91-3809-4295-AF7B-66B3577AF9AE}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
-        "InstallAllUsers" = "11:FALSE"
+        "InstallAllUsers" = "11:TRUE"
         "ProductVersion" = "8:1.0.0"
         "Manufacturer" = "8:Brunsker"
         "ARPHELPTELEPHONE" = "8:"
@@ -665,7 +699,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_01D5A579E0734219AA34D256E2EAC646"
             {
-            "Name" = "8:GeradorPlanilhaHoras"
+            "Name" = "8:Gerador Planilha Horas"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -674,7 +708,21 @@
             "Target" = "8:_A60D72336C5D4155B5CFDF5AE47566DE"
             "Folder" = "8:_E297400A21E849419724C475A7F04B3E"
             "WorkingFolder" = "8:_8301561BCBDB4EADA9382D37601B5F7B"
-            "Icon" = "8:"
+            "Icon" = "8:_B14ACDEA7C454944BFE4D038753F41FD"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_16D137C32C6F4FEA9A9EFBF2816A07F2"
+            {
+            "Name" = "8:Gerador Planilha Horas"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_E7D84C0F1B124307A15AE05FC3CEEF87"
+            "Folder" = "8:_E7D84C0F1B124307A15AE05FC3CEEF87"
+            "WorkingFolder" = "8:_E7D84C0F1B124307A15AE05FC3CEEF87"
+            "Icon" = "8:_B14ACDEA7C454944BFE4D038753F41FD"
             "Feature" = "8:"
             }
         }
