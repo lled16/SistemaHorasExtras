@@ -114,9 +114,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="GeradorPlanilhaHoras_TemporaryKey.pfx" />
+    <None Include="horasExtras.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Compile Include="Properties\Settings.Designer.cs">
@@ -130,6 +133,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="B.ico" />
+    <Content Include="config.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

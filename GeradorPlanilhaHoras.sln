@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeradorPlanilhaHoras", "GeradorPlanilhaHoras\GeradorPlanilhaHoras.csproj", "{3F60B552-6827-485B-B024-BD4DA8E38B75}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Instalador Gerador Planilhas Brunsker", "Instalador Gerador Planilhas Brunsker\Instalador Gerador Planilhas Brunsker.vdproj", "{4422BF46-77AB-4FDE-86D4-39D201361723}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{3F60B552-6827-485B-B024-BD4DA8E38B75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F60B552-6827-485B-B024-BD4DA8E38B75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F60B552-6827-485B-B024-BD4DA8E38B75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4422BF46-77AB-4FDE-86D4-39D201361723}.Debug|Any CPU.ActiveCfg = Debug
+		{4422BF46-77AB-4FDE-86D4-39D201361723}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

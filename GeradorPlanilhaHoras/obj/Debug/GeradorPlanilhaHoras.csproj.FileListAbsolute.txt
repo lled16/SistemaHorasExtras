@@ -20,3 +20,5 @@ C:\Users\JoaoSimao\Documents\joao\EstudoRabbitMQ\GeradorPlanilhaHoras\GeradorPla
 C:\Users\JoaoSimao\Documents\joao\EstudoRabbitMQ\GeradorPlanilhaHoras\GeradorPlanilhaHoras\bin\Debug\GeradorPlanilhaHoras.application
 C:\Users\JoaoSimao\Documents\joao\EstudoRabbitMQ\GeradorPlanilhaHoras\GeradorPlanilhaHoras\obj\Debug\GeradorPlanilhaHoras.exe.manifest
 C:\Users\JoaoSimao\Documents\joao\EstudoRabbitMQ\GeradorPlanilhaHoras\GeradorPlanilhaHoras\obj\Debug\GeradorPlanilhaHoras.application
+C:\Users\JoaoSimao\Documents\joao\EstudoRabbitMQ\GeradorPlanilhaHoras\GeradorPlanilhaHoras\bin\Debug\config.txt
+C:\Users\JoaoSimao\Documents\joao\EstudoRabbitMQ\GeradorPlanilhaHoras\GeradorPlanilhaHoras\bin\Debug\horasExtras.xlsx
